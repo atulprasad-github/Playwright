@@ -11,7 +11,7 @@ let value = await page.locator(".inventory_item_label a").
 console.log(value[0])
 });
 
-test.only('no username test', async ({page})=>{
+test('no username test', async ({page})=>{
 await page.goto("https://www.saucedemo.com/")
 // await page.locator("#password").fill("secret_sauce");
 await page.getByPlaceholder("Password").fill("secret_sauce");
