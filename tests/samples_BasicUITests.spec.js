@@ -1,13 +1,13 @@
 const {test, expect} = require('@playwright/test')
 
-test('first test',async({page})=>{
+test('first item test',async({page})=>{
 await page.goto('https://www.saucedemo.com/');
 await page.locator('[placeholder="Username"]').fill("standard_user");
 await page.locator("#password").fill("secret_sauce");
 await page.locator("#login-button").click();
 //await expect(page.locator("a[id='item_4_title_link'] div[class='inventory_item_name ']")).toHaveText("Sauce Labs Backpack")
 //await expect(page.locator(".inventory_item_label a").nth(0)).toHaveText("Sauce Labs Backpack")
-let value = await page.locator(".inventory_item_label a").
+let value = await page.locator(".inventory_item_label a").first().allTextContents()
 console.log(value[0])
 });
 
