@@ -23,3 +23,19 @@ await expect(page.locator("h3[data-test='error']")).toContainText("Username is r
 var e = await page.locator("h3[data-test='error']").allTextContents();
 console.log(e)
 })
+
+test("Test SauceDemo AddToCart @smoke",async({page})=>{
+    await page.goto("https://www.saucedemo.com/");
+    await page.locator("#user-name").fill("standard_user")
+    await page.locator("//input[@id='password']").fill("secret_sauce");
+    await page.locator("#login-button").click()
+    const items_on_page = await page.locator(".inventory_item_name").allTextContents();
+    expect(items_on_page.length).toBe(6);
+    await page.locator("#add-to-cart-sauce-labs-onesie").click();
+    await page.locator(".shopping_cart_link").click();
+    await Promise.all([
+        expect(page.locator(".inventory_item_name").nth(0)).toHaveText("Sauce Labs Onesie"),
+        expect(page.locator(".inventory_item_desc").nth(0)).toContainText(""),
+        expect(page.locator(".inventory_item_price").nth(0)).toContainText("$7.99")
+    ])
+    })
