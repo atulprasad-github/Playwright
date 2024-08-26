@@ -1,4 +1,5 @@
-const {test, expect} = require('@playwright/test')
+const {test, expect} = require('@playwright/test');
+const { timeout } = require('../playwright.config');
 
 test('first item test',async({page})=>{
 await page.goto('https://www.saucedemo.com/');
@@ -38,4 +39,4 @@ test("Test SauceDemo AddToCart @smoke",async({page})=>{
         expect(page.locator(".inventory_item_desc").nth(0)).toContainText(""),
         expect(page.locator(".inventory_item_price").nth(0)).toContainText("$7.99")
     ])
-    })
+    })  
