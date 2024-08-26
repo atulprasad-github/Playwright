@@ -21,9 +21,9 @@ test("handle auth popup",async({browser})=>{
         {username: "admin",password: "admin"}
     })
     const page = await context.newPage();
-    page.goto("https://the-internet.herokuapp.com/basic_auth");
+    await page.goto("https://the-internet.herokuapp.com/basic_auth");
     expect(await page.locator('.example p')).toContainText("Congratulations");
-    context.close()
+    await context.close()
 })
 
 test("Challenging DOM", async({page})=>{
