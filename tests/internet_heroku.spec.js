@@ -55,3 +55,12 @@ test ("handle context dialog", async ({page})=>{
     expect(dialogMsg).toBe("You selected a context menu");
 
 })
+
+test("checkboxes", async({page})=>{
+    await page.goto("https://the-internet.herokuapp.com/checkboxes");
+    let chkbx2 = await page.locator('#checkboxes input[type="checkbox"]:last-child')
+    await chkbx2.check();
+    expect(chkbx2).toBeChecked();
+    await chkbx2.uncheck();
+    expect(chkbx2).not.toBeChecked();
+})
