@@ -3,6 +3,9 @@
 const {test, expect} = require('@playwright/test');
 const { assert } = require('console');
 const exp = require('constants');
+const { json } = require('stream/consumers');
+const testdata = JSON.parse(JSON.stringify(require("../testdata.json")))
+
 test("add/remove elements",async({page})=>
 {
     await page.goto("https://the-internet.herokuapp.com/");
@@ -18,7 +21,7 @@ test("add/remove elements",async({page})=>
 test("handle auth popup",async({browser})=>{
     const context = await browser.newContext({
         httpCredentials:
-        {username: "admin",password: "admin"}
+        {username: testdata.username,password: testdata.password}
     })
     const page = await context.newPage();
     await page.goto("https://the-internet.herokuapp.com/basic_auth");
@@ -63,4 +66,11 @@ test("checkboxes", async({page})=>{
     expect(chkbx2).toBeChecked();
     await chkbx2.uncheck();
     expect(chkbx2).not.toBeChecked();
+})
+
+test("digest_auth",async({browser})=>{
+    const context = await browser.newContext({httpCredentials:{username:testdata.username,password:testdata.password}});
+    const page = await context.newPage();
+    await page.goto("https://the-internet.herokuapp.com/digest_auth");
+    expect(page.locator(".example p")).toHaveText("Congratulations! You must have the proper credentials.");
 })
