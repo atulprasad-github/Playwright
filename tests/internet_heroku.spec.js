@@ -43,3 +43,15 @@ test("Challenging DOM", async({page})=>{
         console.log(txt)
     }
 })
+
+test ("handle context dialog", async ({page})=>{
+    await page.goto("https://the-internet.herokuapp.com/context_menu");
+    let dialogMsg ='';
+    page.on('dialog',async d=>{
+        dialogMsg = d.message();
+        d.accept();
+    })
+    await page.click("#hot-spot",{button:"right"});
+    expect(dialogMsg).toBe("You selected a context menu");
+
+})
