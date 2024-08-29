@@ -88,7 +88,7 @@ test ("Dynamically Loaded Page Elements",async({page})=>{
         await page.click(`${link}`);
         await start_btn.click();
         await expect(loading_icon).toBeVisible();
-        await expect(finish_text).toBeVisible();
+        await expect(finish_text).toBeVisible({timeout:10000});
         await page.goBack();
     }
 })
