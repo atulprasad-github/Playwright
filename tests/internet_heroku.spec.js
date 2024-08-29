@@ -3,6 +3,7 @@
 const {test, expect} = require('@playwright/test');
 const { assert } = require('console');
 const exp = require('constants');
+const { promises } = require('dns');
 const { json } = require('stream/consumers');
 const testdata = JSON.parse(JSON.stringify(require("../testdata.json")))
 
@@ -73,4 +74,21 @@ test("digest_auth",async({browser})=>{
     const page = await context.newPage();
     await page.goto("https://the-internet.herokuapp.com/digest_auth");
     expect(page.locator(".example p")).toHaveText("Congratulations! You must have the proper credentials.");
+})
+
+test ("Dynamically Loaded Page Elements",async({page})=>{
+
+    await page.goto("https://the-internet.herokuapp.com/dynamic_loading");
+    const start_btn = await page.getByText("Start");
+    const loading_icon = await page.locator("#loading");
+    const finish_text = await page.getByText("Hello World!");
+    //iterate through both links and perform same steps
+    for (const link of ['a[href="/dynamic_loading/1"]','a[href="/dynamic_loading/2"]'])
+    {
+        await page.click(`${link}`);
+        await start_btn.click();
+        await expect(loading_icon).toBeVisible();
+        await expect(finish_text).toBeVisible();
+        await page.goBack();
+    }
 })
