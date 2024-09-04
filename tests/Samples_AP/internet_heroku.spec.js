@@ -5,7 +5,7 @@ const { assert } = require('console');
 const exp = require('constants');
 const { promises } = require('dns');
 const { json } = require('stream/consumers');
-const testdata = JSON.parse(JSON.stringify(require("../testdata.json")))
+const testdata = JSON.parse(JSON.stringify(require("../../testdata.json")))
 
 test("add/remove elements",async({page})=>
 {
