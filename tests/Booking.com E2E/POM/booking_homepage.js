@@ -50,16 +50,14 @@ class booking_homepage {
             console.warn('Sign-in popup not visible, proceeding with the search...');
         }
         if (datepickerTab.isVisible()){
-            console.log("yes its visible")
+            console.log("datepicker tab is visible, closing it now")
             // await this.page.pause();
             await this.page.locator(this.top_date_picker).click()
         }
-        await this.page.locator(this.top_date_picker).screenshot({path:"heelo.png"})
-        await this.page.screenshot({path:"debug2.png"});
         await this.page.waitForSelector(this.hotel_results,{timeout:8000})
         const hotels_list = await this.page.locator(this.hotel_results).all();
         const hotels_count = hotels_list.length;
-        console.log(hotels_count)
+        console.log("Search Successful, hotels returned in page="+hotels_count);
     }
 
 }
